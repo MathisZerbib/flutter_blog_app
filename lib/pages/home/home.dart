@@ -19,19 +19,47 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Bienvenue',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+            Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Column(
+                    children: [
+                      Text(
+                        'Bienvenue',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Valentin',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.goNamed(Routes.postsName);
+                    },
+                    child: const Text('Voir le feed'),
+                  ),
+                ],
               ),
             ),
-            const Gap(20),
-            ElevatedButton(
-              onPressed: () {
-                context.goNamed(Routes.postsName);
-              },
-              child: const Text('Voir le feed'),
+            Expanded(
+              flex: 1,
+              child: Container(),
             ),
           ],
         ),

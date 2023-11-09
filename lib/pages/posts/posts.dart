@@ -47,15 +47,33 @@ class PostsPage extends ConsumerWidget {
           itemBuilder: (context, index) {
             Post post = posts[index];
 
-            return BlogCard(
-              title: post.title,
-              author: post.userId.toString(),
-              onClick: () {
-                context.goNamed(
-                  Routes.postDetailsName,
-                  pathParameters: {'id': post.id.toString()},
+            return Dismissible(
+              key: Key(post.id.toString()),
+              onDismissed: (direction) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("${post.title} supprimé"),
+                  ),
                 );
               },
+              background: const Card(
+                color: Colors.red,
+                child: Center(
+                    child: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                )),
+              ),
+              child: BlogCard(
+                title: post.title,
+                author: post.userId.toString(),
+                onClick: () {
+                  context.goNamed(
+                    Routes.postDetailsName,
+                    pathParameters: {'id': post.id.toString()},
+                  );
+                },
+              ),
             );
           },
         );
