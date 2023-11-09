@@ -19,20 +19,37 @@ class PostsPage extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () => context.goNamed(Routes.homeName),
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.search),
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          // Flutter Delayed
-          await Future.delayed(const Duration(milliseconds: 700));
-          AsyncValue<List<Post>> refreshedPosts =
-              await ref.refresh(postsProvider);
+      body: Padding(
+        padding: const EdgeInsets.all(8.0), // Padding for the whole page
+        child: RefreshIndicator(
+          onRefresh: () async {
+            // Flutter Delayed
+            await Future.delayed(const Duration(milliseconds: 00));
+            AsyncValue<List<Post>> refreshedPosts =
+                await ref.refresh(postsProvider);
 
-          refreshedPosts;
-        },
-        child: _buildPostListView(ref),
+            refreshedPosts;
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Blog List',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: _buildPostListView(ref),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -54,7 +71,7 @@ class PostsPage extends ConsumerWidget {
                 if (direction == DismissDirection.endToStart) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text("${post.title} supprimé"),
+                      content: Text("${post.title} deleted"),
                     ),
                   );
                 }

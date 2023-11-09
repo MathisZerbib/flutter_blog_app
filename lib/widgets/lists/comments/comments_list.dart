@@ -19,7 +19,7 @@ class CommentList extends StatelessWidget {
           title: Text(comment.name),
           subtitle: Text(comment.body),
           trailing: Text(
-            '${Random().nextInt(30 + Random().nextInt(5))} days ago',
+            '${Random().nextInt(30 + Random().nextInt(5) + 1)} days ago',
           ),
         );
       },
