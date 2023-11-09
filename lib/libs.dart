@@ -7,6 +7,7 @@ export 'package:flutter/foundation.dart';
 // export 'package:flutter_localizations/flutter_localizations.dart';
 // export 'package:uuid/uuid.dart';
 export 'package:http_parser/http_parser.dart';
+export 'dart:convert';
 
 /// PACKAGES
 export 'package:url_strategy/url_strategy.dart';
@@ -29,6 +30,7 @@ export 'package:flutter_blog_app/app.dart';
 /// WIDGETS
 
 /// MODELS
+export 'package:flutter_blog_app/models/post.dart';
 
 /// PAGES
 export 'package:flutter_blog_app/pages/home/home.dart';
