@@ -7,23 +7,31 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 21, 12, 1),
         automaticallyImplyLeading: true,
-        title: const Text('Blog Posts', style: TextStyle(color: Colors.white)),
+        title: Image.asset(
+          'assets/main_logo.png',
+          width: 150,
+          height: 150,
+        ),
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/main_logo.png',
-              width: 150,
-              height: 150,
+            const Text(
+              'Bienvenue',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            const Gap(20),
             ElevatedButton(
               onPressed: () {
                 context.goNamed(Routes.postsName);
               },
-              child: const Text('Bienvenue'),
+              child: const Text('Voir le feed'),
             ),
           ],
         ),

@@ -45,3 +45,7 @@ List<Post> searchPosts(List<Post> posts, String keyword) {
           post.body.toLowerCase().contains(keyword.toLowerCase()))
       .toList();
 }
+
+Post searchPostById(List<Post> posts, int id) {
+  return posts.firstWhere((post) => post.id == id);
+}
