@@ -49,20 +49,24 @@ class PostsPage extends ConsumerWidget {
 
             return Dismissible(
               key: Key(post.id.toString()),
+              direction: DismissDirection.endToStart,
               onDismissed: (direction) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("${post.title} supprimé"),
-                  ),
-                );
+                if (direction == DismissDirection.endToStart) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("${post.title} supprimé"),
+                    ),
+                  );
+                }
               },
               background: const Card(
                 color: Colors.red,
                 child: Center(
-                    child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                )),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ),
               ),
               child: PostCard(
                 title: post.title,
