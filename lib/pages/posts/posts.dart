@@ -64,7 +64,7 @@ class PostsPage extends ConsumerWidget {
                   color: Colors.white,
                 )),
               ),
-              child: BlogCard(
+              child: PostCard(
                 title: post.title,
                 author: post.userId.toString(),
                 onClick: () {

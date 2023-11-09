@@ -29,25 +29,22 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
       body: postAsyncValue.when(
         data: (Post post) {
           return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  post.title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  post.body,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
+            child: PostDetailCard(post: post, comments: [
+              Comment(
+                id: 1,
+                postId: 1,
+                name: 'Valentin',
+                email: 'valentin@gmail.com',
+                body: 'Test',
+              ),
+              Comment(
+                id: 2,
+                postId: 1,
+                name: 'Mathis',
+                email: 'mathis.zerbib@gmail.com',
+                body: 'Test',
+              ),
+            ]),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
