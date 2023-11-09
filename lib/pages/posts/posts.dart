@@ -16,15 +16,17 @@ class PostsPage extends ConsumerWidget {
           onPressed: () => context.goNamed(Routes.homeName),
           icon: const Icon(Icons.arrow_back),
         ),
-        actions: [
+        actions: <Widget>[
           IconButton(
-            onPressed: () => context.goNamed(Routes.homeName),
             icon: const Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            },
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0), // Padding for the whole page
+        padding: const EdgeInsets.all(8.0),
         child: RefreshIndicator(
           onRefresh: () async {
             // Flutter Delayed
