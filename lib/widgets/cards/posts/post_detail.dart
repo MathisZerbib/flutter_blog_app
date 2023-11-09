@@ -108,7 +108,7 @@ class PostDetailCardState extends State<PostDetailCard> {
                         ),
                       ),
                       Text(
-                        'More recent first',
+                        'Plus récent first',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.italic,

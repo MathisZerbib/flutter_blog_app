@@ -26,7 +26,7 @@ class PostsPage extends ConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           // Flutter Delayed
-          await Future.delayed(const Duration(seconds: 2));
+          await Future.delayed(const Duration(milliseconds: 700));
           AsyncValue<List<Post>> refreshedPosts =
               await ref.refresh(postsProvider);
 
