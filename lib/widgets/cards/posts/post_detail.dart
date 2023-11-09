@@ -26,7 +26,6 @@ class PostDetailCardState extends State<PostDetailCard> {
   Future<void> _prepareData() async {
     await fetchPostImage(widget.post.id);
     await fetchUserPhoto(widget.post.userId);
-    // Other asynchronous operations
   }
 
   @override
