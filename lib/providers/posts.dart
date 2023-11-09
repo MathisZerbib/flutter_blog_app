@@ -10,4 +10,3 @@ final postProvider = FutureProvider.family<Post, int>((ref, id) async {
   Post post = searchPostById(posts, id);
   return post;
 });
-
