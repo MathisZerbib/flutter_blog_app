@@ -43,16 +43,19 @@ final appRoutes = [
           child: const PostsPage(),
         ),
       ),
-      // GoRoute(
-      //   name: Routes.postDetailsName,
-      //   path: Routes.postDetailsPath,
-      //   parentNavigatorKey: shellNavigatorKey,
-      //   pageBuilder: (BuildContext context, GoRouterState state) =>
-      //       NoTransitionPage(
-      //     key: state.pageKey,
-      //     child: PostDetailsPage(postId: state.pathParameters['id']!),
-      //   ),
-      // ),
+      GoRoute(
+        name: Routes.postDetailsName,
+        path: Routes.postDetailsPath,
+        parentNavigatorKey: shellNavigatorKey,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          print(state.pathParameters['id']!);
+          final id = int.parse(state.pathParameters['id']!);
+          return NoTransitionPage(
+            key: state.pageKey,
+            child: PostDetailsPage(id: id),
+          );
+        },
+      ),
     ],
   ),
 ];
