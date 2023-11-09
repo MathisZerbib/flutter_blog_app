@@ -9,19 +9,19 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 21, 12, 1),
         automaticallyImplyLeading: true,
-        title: const Text('Le Monde', style: TextStyle(color: Colors.white)),
+        title: const Text('Blog Posts', style: TextStyle(color: Colors.white)),
       ),
       body: Center(
         child: Column(
           children: [
-              Image.asset(
-              'assets/le_monde_logo.png', // Replace with the actual path to your logo image
-              width: 30,
-              height: 30,
+            Image.asset(
+              'assets/main_logo.png',
+              width: 150,
+              height: 150,
             ),
             ElevatedButton(
               onPressed: () {
-                context.go(Routes.postsName);
+                context.goNamed(Routes.postsName);
               },
               child: const Text('Bienvenue'),
             ),
