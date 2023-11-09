@@ -49,3 +49,26 @@ List<Post> searchPosts(List<Post> posts, String keyword) {
 Post searchPostById(List<Post> posts, int id) {
   return posts.firstWhere((post) => post.id == id);
 }
+
+Future<String> fetchUserPhoto(int userId) async {
+  final response = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos?id=$userId'));
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> photoData = jsonDecode(response.body)[0];
+    return photoData['url'];
+  } else {
+    return 'https://via.placeholder.com/150';
+  }
+}
+
+/// same method but faked
+Future<String> fetchPostImage(int postId) async {
+  final response = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos?id=$postId'));
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> photoData = jsonDecode(response.body)[0];
+    return photoData['url'];
+  } else {
+    return 'https://via.placeholder.com/150';
+  }
+}

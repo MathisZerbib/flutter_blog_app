@@ -26,11 +26,14 @@ export 'package:flutter_blog_app/providers/posts.dart';
 export 'package:flutter_blog_app/services/api_service.dart';
 
 /// WIDGETS
-export 'package:flutter_blog_app/widgets/cards/post/post.dart';
-export 'package:flutter_blog_app/widgets/cards/post/post_detail.dart';
+export 'package:flutter_blog_app/widgets/cards/posts/post.dart';
+export 'package:flutter_blog_app/widgets/cards/posts/post_detail.dart';
+export 'package:flutter_blog_app/widgets/lists/comments/comments_list.dart';
 
 /// MODELS
 export 'package:flutter_blog_app/models/post.dart';
+export 'package:flutter_blog_app/models/image.dart';
+export 'package:flutter_blog_app/models/comment.dart';
 
 /// PAGES
 export 'package:flutter_blog_app/pages/home/home.dart';

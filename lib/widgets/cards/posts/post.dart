@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class BlogCard extends StatelessWidget {
+class PostCard extends StatelessWidget {
   final String title;
   final String author;
   final VoidCallback onClick;
 
-  const BlogCard({
+  const PostCard({
     Key? key,
     required this.title,
     required this.author,
