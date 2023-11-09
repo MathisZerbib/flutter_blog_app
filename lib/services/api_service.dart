@@ -54,12 +54,10 @@ Future<String> fetchUserPhoto(int userId) async {
   final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/photos?id=$userId'));
   if (response.statusCode == 200) {
-    // Assuming the response is a single photo, so only fetching the first item
     final Map<String, dynamic> photoData = jsonDecode(response.body)[0];
     return photoData['url'];
   } else {
-    // If request fails, return a placeholder image URL
-    return 'https://via.placeholder.com/150'; // You can use a default image URL or an error image
+    return 'https://via.placeholder.com/150';
   }
 }
 
@@ -68,11 +66,9 @@ Future<String> fetchPostImage(int postId) async {
   final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/photos?id=$postId'));
   if (response.statusCode == 200) {
-    // Assuming the response is a single photo, so only fetching the first item
     final Map<String, dynamic> photoData = jsonDecode(response.body)[0];
     return photoData['url'];
   } else {
-    // If request fails, return a placeholder image URL
-    return 'https://via.placeholder.com/150'; // You can use a default image URL or an error image
+    return 'https://via.placeholder.com/150';
   }
 }

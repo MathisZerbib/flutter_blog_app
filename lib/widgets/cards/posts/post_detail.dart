@@ -11,10 +11,10 @@ class PostDetailCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PostDetailCardState createState() => _PostDetailCardState();
+  PostDetailCardState createState() => PostDetailCardState();
 }
 
-class _PostDetailCardState extends State<PostDetailCard> {
+class PostDetailCardState extends State<PostDetailCard> {
   late Future<void> _data;
 
   @override
