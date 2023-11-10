@@ -29,7 +29,6 @@ class PostsPage extends ConsumerWidget {
         padding: const EdgeInsets.all(8.0),
         child: RefreshIndicator(
           onRefresh: () async {
-            // Flutter Delayed
             await Future.delayed(const Duration(milliseconds: 400));
             AsyncValue<List<Post>> refreshedPosts =
                 await ref.refresh(postsProvider);
@@ -52,6 +51,12 @@ class PostsPage extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showAddPostDialog(context, ref);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -107,6 +112,15 @@ class PostsPage extends ConsumerWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showAddPostDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddPostDialog(ref: ref);
+      },
     );
   }
 }

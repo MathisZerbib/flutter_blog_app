@@ -5,14 +5,13 @@ class PostDetailsPage extends ConsumerStatefulWidget {
   const PostDetailsPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PostDetailsPageState();
+  ConsumerState<PostDetailsPage> createState() => _PostDetailsPageState();
 }
 
 class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    final postAsyncValue = ref.watch(postProvider(widget.id));
+    final postAsyncValue = ref.watch(postsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +26,8 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
         ),
       ),
       body: postAsyncValue.when(
-        data: (Post post) {
+        data: (List<Post> posts) {
+          final post = PostsProvider().searchPostById(posts, widget.id);
           return Center(
             child: PostDetailCard(post: post, comments: [
               Comment(

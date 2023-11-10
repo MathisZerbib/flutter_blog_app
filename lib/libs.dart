@@ -30,6 +30,7 @@ export 'package:flutter_blog_app/widgets/cards/posts/post.dart';
 export 'package:flutter_blog_app/widgets/cards/posts/post_detail.dart';
 export 'package:flutter_blog_app/widgets/lists/comments/comments_list.dart';
 export 'package:flutter_blog_app/widgets/lists/custom_search_delegate.dart';
+export 'package:flutter_blog_app/widgets/dialogs/post/add_post.dart';
 
 /// MODELS
 export 'package:flutter_blog_app/models/post.dart';
