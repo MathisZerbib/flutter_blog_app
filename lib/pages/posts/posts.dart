@@ -20,7 +20,7 @@ class PostsPage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              showSearch(context: context, delegate: CustomSearchDelegate());
+              showSearch(context: context, delegate: CustomSearchDelegate(ref));
             },
           ),
         ],
@@ -30,7 +30,7 @@ class PostsPage extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () async {
             // Flutter Delayed
-            await Future.delayed(const Duration(milliseconds: 00));
+            await Future.delayed(const Duration(milliseconds: 400));
             AsyncValue<List<Post>> refreshedPosts =
                 await ref.refresh(postsProvider);
 
@@ -65,45 +65,48 @@ class PostsPage extends ConsumerWidget {
           itemCount: posts.length,
           itemBuilder: (context, index) {
             Post post = posts[index];
-
-            return Dismissible(
-              key: Key(post.id.toString()),
-              direction: DismissDirection.endToStart,
-              onDismissed: (direction) {
-                if (direction == DismissDirection.endToStart) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("${post.title} deleted"),
-                    ),
-                  );
-                }
-              },
-              background: const Card(
-                color: Colors.red,
-                child: Center(
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              child: PostCard(
-                title: post.title,
-                author: post.userId.toString(),
-                onClick: () {
-                  context.goNamed(
-                    Routes.postDetailsName,
-                    pathParameters: {'id': post.id.toString()},
-                  );
-                },
-              ),
-            );
+            return buildPostCard(context, post);
           },
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stackTrace) =>
           Center(child: Text('Error fetching posts: $error')),
+    );
+  }
+
+  static Widget buildPostCard(BuildContext context, Post post) {
+    return Dismissible(
+      key: Key(post.id.toString()),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        if (direction == DismissDirection.endToStart) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("${post.title} deleted"),
+            ),
+          );
+        }
+      },
+      background: const Card(
+        color: Colors.red,
+        child: Center(
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      child: PostCard(
+        title: post.title,
+        author: post.userId.toString(),
+        onClick: () {
+          context.goNamed(
+            Routes.postDetailsName,
+            pathParameters: {'id': post.id.toString()},
+          );
+        },
+      ),
     );
   }
 }
