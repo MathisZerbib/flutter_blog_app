@@ -2,6 +2,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_blog_app/libs.dart';
 
 class Api {
+  static String unsplashApiKey = dotenv.env['UNSPLASH_API_KEY'] ?? '';
+
+  /// Posts API
   static Future<List<Post>> fetchPosts() async {
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
@@ -53,30 +56,34 @@ class Api {
     return posts.firstWhere((post) => post.id == id);
   }
 
+// IMAGES API
   static Future<String> fetchUserPhoto(int userId) async {
     final response = await http.get(
-        Uri.parse('https://jsonplaceholder.typicode.com/photos?id=$userId'));
+      Uri.parse('https://api.unsplash.com/photos/random'),
+      headers: <String, String>{
+        'Authorization': 'Client-ID $unsplashApiKey',
+      },
+    );
     if (response.statusCode == 200) {
-      final Map<String, dynamic> photoData = jsonDecode(response.body)[0];
-      return photoData['url'];
+      final Map<String, dynamic> photoData = jsonDecode(response.body);
+      return photoData['urls']['regular'];
     } else {
       return 'https://via.placeholder.com/150';
     }
   }
 
-  /// Same method but faked
   static Future<String> fetchPostImage(int postId) async {
     final response = await http.get(
-        Uri.parse('https://jsonplaceholder.typicode.com/photos?id=$postId'));
+      Uri.parse('https://api.unsplash.com/photos/random'),
+      headers: <String, String>{
+        'Authorization': 'Client-ID $unsplashApiKey',
+      },
+    );
     if (response.statusCode == 200) {
-      final Map<String, dynamic> photoData = jsonDecode(response.body)[0];
-      return photoData['url'];
+      final Map<String, dynamic> photoData = jsonDecode(response.body);
+      return photoData['urls']['regular'];
     } else {
       return 'https://via.placeholder.com/150';
     }
   }
 }
-
-final apiProvider = Provider<Api>((ref) {
-  return Api();
-});

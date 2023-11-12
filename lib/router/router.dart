@@ -48,7 +48,6 @@ final appRoutes = [
         path: Routes.postDetailsPath,
         parentNavigatorKey: shellNavigatorKey,
         pageBuilder: (BuildContext context, GoRouterState state) {
-          print(state.pathParameters['id']!);
           final id = int.parse(state.pathParameters['id']!);
           return NoTransitionPage(
             key: state.pageKey,

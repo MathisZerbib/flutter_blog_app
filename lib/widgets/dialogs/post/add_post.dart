@@ -2,8 +2,9 @@ import 'package:flutter_blog_app/libs.dart';
 
 class AddPostDialog extends StatefulWidget {
   final WidgetRef ref;
-
-  const AddPostDialog({Key? key, required this.ref}) : super(key: key);
+  final Function(Post post) onAddPost;
+  const AddPostDialog({Key? key, required this.ref, required this.onAddPost})
+      : super(key: key);
 
   @override
   AddPostDialogState createState() => AddPostDialogState();
@@ -15,8 +16,6 @@ class AddPostDialogState extends State<AddPostDialog> {
 
   @override
   Widget build(BuildContext context) {
-    print('AddPostDialogState.build()');
-    print(widget.ref);
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
@@ -57,10 +56,12 @@ class AddPostDialogState extends State<AddPostDialog> {
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: () {
-              // Save the post using the provided ref and close the dialog.
-              _savePost(widget.ref);
-              Navigator.of(context).pop();
+            onPressed: () async {
+              final addedPost = await _savePost(widget.ref);
+              widget.onAddPost(addedPost!);
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
             },
             child: const Text('Add'),
           ),
@@ -69,21 +70,18 @@ class AddPostDialogState extends State<AddPostDialog> {
     );
   }
 
-  void _savePost(WidgetRef ref) async {
-    // Get the title and content from the controllers
+  Future<Post?> _savePost(WidgetRef ref) async {
     final String title = _titleController.text;
     final String content = _contentController.text;
 
-    // Create a new post
     final Post post = Post(
       id: 0,
       userId: 1,
       title: title,
       body: content,
     );
-    final postsProv = ref.watch(postsProvider);
-
-    // Add the post to the posts provider
-    // await postsProv.addPost(post);
+    final posts = ref.read(postsNotifier);
+    await posts.addPost(post);
+    return post;
   }
 }

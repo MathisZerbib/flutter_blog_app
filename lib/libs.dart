@@ -11,6 +11,7 @@ export 'package:go_router/go_router.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart'
     hide describeIdentity, shortHash;
 export 'package:gap/gap.dart';
+export 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// GLOBALS
 

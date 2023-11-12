@@ -1,14 +1,35 @@
 import 'package:flutter_blog_app/libs.dart';
 
-final postsProvider = FutureProvider((ref) => Api.fetchPosts());
+final postsProvider = FutureProvider<List<Post>>((ref) async {
+  final postsProvider = ref.read(postsNotifier);
+  await postsProvider.fetchPosts();
+  return postsProvider.posts;
+});
+
+final postsNotifier = ChangeNotifierProvider((ref) => PostsProvider());
 
 class PostsProvider extends ChangeNotifier {
   final List<Post> _posts = [];
 
   List<Post> get posts => _posts;
 
+  Future<void> fetchPosts() async {
+    final List<Post> newPosts = await Api.fetchPosts();
+
+    final List<Post> postsToAdd = newPosts
+        .where((newPost) =>
+            !_posts.any((existingPost) => existingPost.id == newPost.id))
+        .toList();
+
+    _posts.addAll(postsToAdd);
+
+    notifyListeners();
+  }
+
   Future<void> addPost(Post post) async {
-    _posts.add(post);
+    final Post simulatedPost = post.copyWith(
+        id: _posts.length + 1, userId: 1, title: post.title, body: post.body);
+    _posts.insert(0, simulatedPost);
     notifyListeners();
   }
 
@@ -17,7 +38,6 @@ class PostsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// filter post by Id and return the first post
   Post searchPostById(List<Post> posts, int id) {
     return posts.firstWhere((post) => post.id == id);
   }

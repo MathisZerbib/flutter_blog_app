@@ -70,7 +70,7 @@ class PostsPage extends ConsumerWidget {
           itemCount: posts.length,
           itemBuilder: (context, index) {
             Post post = posts[index];
-            return buildPostCard(context, post);
+            return buildPostCard(context, post, ref);
           },
         );
       },
@@ -80,12 +80,13 @@ class PostsPage extends ConsumerWidget {
     );
   }
 
-  static Widget buildPostCard(BuildContext context, Post post) {
+  static Widget buildPostCard(BuildContext context, Post post, WidgetRef ref) {
     return Dismissible(
       key: Key(post.id.toString()),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
+          ref.read(postsNotifier.notifier).deletePost(post.id);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("${post.title} deleted"),
@@ -115,11 +116,16 @@ class PostsPage extends ConsumerWidget {
     );
   }
 
-  void _showAddPostDialog(BuildContext context, WidgetRef ref) {
-    showDialog(
+  void _showAddPostDialog(BuildContext context, WidgetRef ref) async {
+    await showDialog<Post?>(
       context: context,
       builder: (BuildContext context) {
-        return AddPostDialog(ref: ref);
+        return AddPostDialog(
+          ref: ref,
+          onAddPost: (Post post) {
+            ref.refresh(postsProvider);
+          },
+        );
       },
     );
   }
