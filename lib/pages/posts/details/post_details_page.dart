@@ -2,13 +2,22 @@ import 'package:flutter_blog_app/libs.dart';
 
 class PostDetailsPage extends ConsumerStatefulWidget {
   final int id;
+
   const PostDetailsPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  ConsumerState<PostDetailsPage> createState() => _PostDetailsPageState();
+  PostDetailsPageState createState() => PostDetailsPageState();
 }
 
-class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
+class PostDetailsPageState extends ConsumerState<PostDetailsPage> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
   @override
   Widget build(BuildContext context) {
     final postAsyncValue = ref.watch(postsProvider);
@@ -27,24 +36,34 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
       ),
       body: postAsyncValue.when(
         data: (List<Post> posts) {
-          final post = PostsProvider().searchPostById(posts, widget.id);
-          return Center(
-            child: PostDetailCard(post: post, comments: [
-              Comment(
-                id: 1,
-                postId: 1,
-                name: 'Valentin',
-                email: 'valentin@gmail.com',
-                body: 'Test',
-              ),
-              Comment(
-                id: 2,
-                postId: 1,
-                name: 'Mathis',
-                email: 'mathis.zerbib@gmail.com',
-                body: 'Test',
-              ),
-            ]),
+          final postIndex = posts.indexWhere((post) => post.id == widget.id);
+          return PageView.builder(
+            controller: _pageController,
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              final post = posts[index];
+              return Center(
+                child: PostDetailCard(
+                  post: post,
+                  comments: [
+                    Comment(
+                      id: 1,
+                      postId: 1,
+                      name: 'Valentin',
+                      email: 'valentin@gmail.com',
+                      body: 'Test',
+                    ),
+                    Comment(
+                      id: 2,
+                      postId: 1,
+                      name: 'Mathis',
+                      email: 'mathis.zerbib@gmail.com',
+                      body: 'Test',
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
