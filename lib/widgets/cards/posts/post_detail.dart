@@ -24,8 +24,8 @@ class PostDetailCardState extends State<PostDetailCard> {
   }
 
   Future<void> _prepareData() async {
-    await fetchPostImage(widget.post.id);
-    await fetchUserPhoto(widget.post.userId);
+    await Api.fetchPostImage(widget.post.id);
+    await Api.fetchUserPhoto(widget.post.userId);
   }
 
   @override
@@ -44,7 +44,7 @@ class PostDetailCardState extends State<PostDetailCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FutureBuilder(
-                  future: fetchPostImage(widget.post.id),
+                  future: Api.fetchPostImage(widget.post.id),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -69,7 +69,7 @@ class PostDetailCardState extends State<PostDetailCard> {
                     right: 16.0,
                   ),
                   leading: FutureBuilder(
-                    future: fetchUserPhoto(widget.post.userId),
+                    future: Api.fetchUserPhoto(widget.post.userId),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircleAvatar();

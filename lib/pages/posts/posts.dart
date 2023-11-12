@@ -29,7 +29,6 @@ class PostsPage extends ConsumerWidget {
         padding: const EdgeInsets.all(8.0),
         child: RefreshIndicator(
           onRefresh: () async {
-            // Flutter Delayed
             await Future.delayed(const Duration(milliseconds: 400));
             AsyncValue<List<Post>> refreshedPosts =
                 await ref.refresh(postsProvider);
@@ -53,6 +52,12 @@ class PostsPage extends ConsumerWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showAddPostDialog(context, ref);
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
@@ -65,7 +70,7 @@ class PostsPage extends ConsumerWidget {
           itemCount: posts.length,
           itemBuilder: (context, index) {
             Post post = posts[index];
-            return buildPostCard(context, post);
+            return buildPostCard(context, post, ref);
           },
         );
       },
@@ -75,12 +80,13 @@ class PostsPage extends ConsumerWidget {
     );
   }
 
-  static Widget buildPostCard(BuildContext context, Post post) {
+  static Widget buildPostCard(BuildContext context, Post post, WidgetRef ref) {
     return Dismissible(
       key: Key(post.id.toString()),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
+          ref.read(postsNotifier.notifier).deletePost(post.id);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("${post.title} deleted"),
@@ -107,6 +113,20 @@ class PostsPage extends ConsumerWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showAddPostDialog(BuildContext context, WidgetRef ref) async {
+    await showDialog<Post?>(
+      context: context,
+      builder: (BuildContext context) {
+        return AddPostDialog(
+          ref: ref,
+          onAddPost: (Post post) {
+            ref.refresh(postsProvider);
+          },
+        );
+      },
     );
   }
 }

@@ -48,7 +48,6 @@ class CustomSearchDelegate extends SearchDelegate<String> {
             .toList();
 
         if (filteredPosts.isEmpty) {
-          // Display a "no results" message in French
           return Center(
             child: Text(
               'Aucun résultat trouvé pour "$query"',
