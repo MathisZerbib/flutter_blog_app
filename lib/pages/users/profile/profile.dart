@@ -17,7 +17,7 @@ class UserProfilePage extends ConsumerWidget {
           height: 150,
         ),
         leading: IconButton(
-          onPressed: () => context.goNamed(Routes.homeName),
+          onPressed: () => context.goNamed(Routes.postsName),
           icon: const Icon(Icons.arrow_back),
         ),
         actions: <Widget>[
@@ -48,17 +48,11 @@ class UserProfilePage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Photo:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    Center(
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(userProfile.photo),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(userProfile.photo),
                     ),
                     const SizedBox(height: 20),
                     const Text(
