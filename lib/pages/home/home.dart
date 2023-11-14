@@ -29,20 +29,26 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Column(
+                  Column(
                     children: [
-                      Text(
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: const DecorationImage(
+                            image: AssetImage(
+                                'assets/little_boy_reading_books.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const Gap(10),
+                      const Text(
                         'Bienvenue',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Valentin',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontStyle: FontStyle.italic,
                         ),
                       ),
                     ],

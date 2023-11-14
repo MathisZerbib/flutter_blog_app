@@ -34,6 +34,18 @@ final appRoutes = [
     },
     routes: [
       GoRoute(
+        name: Routes.userProfileName,
+        path: Routes.userProfilePath,
+        parentNavigatorKey: shellNavigatorKey,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          // final id = int.parse(state.pathParameters['id']!);
+          return NoTransitionPage(
+            key: state.pageKey,
+            child: const UserProfilePage(id: 1),
+          );
+        },
+      ),
+      GoRoute(
         name: Routes.postsName,
         path: Routes.postsPath,
         parentNavigatorKey: shellNavigatorKey,
