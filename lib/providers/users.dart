@@ -11,7 +11,8 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
 
   UserProfileNotifier(this.id)
       : super(UserProfile(
-          photo: 'https://via.placeholder.com/150',
+          photo:
+              'https://conseilscrypto.com/wp-content/uploads/2023/07/Larry-Fink-PDG-du-geant-de-la-finance-BlackRock-declare-que-le-monde-de-la-crypto-numerise-lor.jpg',
           name: 'John Doe',
           email: 'johndoe@example.com',
         ));
