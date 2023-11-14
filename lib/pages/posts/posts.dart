@@ -17,11 +17,22 @@ class PostsPage extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back),
         ),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: CustomSearchDelegate(ref));
-            },
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.person),
+                onPressed: () => context.goNamed(
+                  Routes.userProfileName,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  showSearch(
+                      context: context, delegate: CustomSearchDelegate(ref));
+                },
+              ),
+            ],
           ),
         ],
       ),

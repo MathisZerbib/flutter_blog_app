@@ -4,7 +4,7 @@ import 'package:flutter_blog_app/libs.dart';
 class Api {
   static String unsplashApiKey = dotenv.env['UNSPLASH_API_KEY'] ?? '';
 
-  /// Posts API
+  /// POSTS
   static Future<List<Post>> fetchPosts() async {
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
@@ -56,7 +56,7 @@ class Api {
     return posts.firstWhere((post) => post.id == id);
   }
 
-// IMAGES API
+// IMAGES
   static Future<String> fetchUserPhoto(int userId) async {
     final response = await http.get(
       Uri.parse('https://api.unsplash.com/photos/random'),

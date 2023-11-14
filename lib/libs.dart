@@ -22,6 +22,7 @@ export 'package:flutter_blog_app/app.dart';
 
 /// PROVIDERS
 export 'package:flutter_blog_app/providers/posts.dart';
+export 'package:flutter_blog_app/providers/users.dart';
 
 /// SERVICES
 export 'package:flutter_blog_app/services/api_service.dart';
@@ -37,12 +38,14 @@ export 'package:flutter_blog_app/widgets/dialogs/post/add_post.dart';
 export 'package:flutter_blog_app/models/post.dart';
 export 'package:flutter_blog_app/models/image.dart';
 export 'package:flutter_blog_app/models/comment.dart';
+export 'package:flutter_blog_app/models/user_profile.dart';
 
 /// PAGES
 export 'package:flutter_blog_app/pages/home/home.dart';
 export 'package:flutter_blog_app/pages/errors/error_404_page.dart';
 export 'package:flutter_blog_app/pages/posts/posts.dart';
 export 'package:flutter_blog_app/pages/posts/details/post_details_page.dart';
+export 'package:flutter_blog_app/pages/users/profile/profile.dart';
 
 /// ROUTER
 export 'package:flutter_blog_app/router/router.dart';
