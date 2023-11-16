@@ -15,7 +15,7 @@ class PostDetailsPageState extends ConsumerState<PostDetailsPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -36,31 +36,24 @@ class PostDetailsPageState extends ConsumerState<PostDetailsPage> {
       ),
       body: postAsyncValue.when(
         data: (List<Post> posts) {
-          final postIndex = posts.indexWhere((post) => post.id == widget.id);
+          int postIndex = posts.indexWhere((post) => post.id == widget.id);
+          if (postIndex == -1) {
+            postIndex = 0;
+          }
+          _pageController = PageController(initialPage: postIndex);
+
           return PageView.builder(
             controller: _pageController,
             itemCount: posts.length,
             itemBuilder: (context, index) {
               final post = posts[index];
+              final commentProv = ref.read(commentsProvider.notifier);
+              commentProv.fetchCommentsByPostId(index);
+              final comments = ref.watch(commentsProvider).comments;
               return Center(
                 child: PostDetailCard(
                   post: post,
-                  comments: [
-                    Comment(
-                      id: 1,
-                      postId: 1,
-                      name: 'Valentin',
-                      email: 'valentin@gmail.com',
-                      body: 'Test',
-                    ),
-                    Comment(
-                      id: 2,
-                      postId: 1,
-                      name: 'Mathis',
-                      email: 'mathis.zerbib@gmail.com',
-                      body: 'Test',
-                    ),
-                  ],
+                  comments: comments,
                 ),
               );
             },

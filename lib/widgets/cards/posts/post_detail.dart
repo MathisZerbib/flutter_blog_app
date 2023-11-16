@@ -24,7 +24,6 @@ class PostDetailCardState extends State<PostDetailCard> {
   }
 
   Future<void> _prepareData() async {
-    await Api.fetchPostImage(widget.post.id);
     await Api.fetchUserPhoto(widget.post.userId);
     if (mounted) {
       setState(() {
@@ -37,40 +36,33 @@ class PostDetailCardState extends State<PostDetailCard> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: _isDataReady ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
       child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FutureBuilder(
               future: Api.fetchPostImage(widget.post.id),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SizedBox(
-                    width: double.infinity,
-                    height: 300,
-                    child: Center(child: CircularProgressIndicator()),
+                if (snapshot.hasData) {
+                  return Image(
+                    image: NetworkImage(snapshot.data.toString()),
                   );
-                } else if (snapshot.hasError) {
-                  return const Center(child: Text('Error fetching post image'));
                 } else {
-                  return Image.network(
-                    snapshot.data.toString(),
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 300,
+                  return const SizedBox(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },
             ),
             ListTile(
-              contentPadding: const EdgeInsets.only(
-                top: 8.0,
-                bottom: 8.0,
-                left: 16.0,
-                right: 16.0,
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
               ),
               leading: FutureBuilder(
                 future: Api.fetchUserPhoto(widget.post.userId),
@@ -80,7 +72,9 @@ class PostDetailCardState extends State<PostDetailCard> {
                       backgroundImage: NetworkImage(snapshot.data.toString()),
                     );
                   } else {
-                    return const CircleAvatar();
+                    return const CircleAvatar(
+                      child: Icon(Icons.person),
+                    );
                   }
                 },
               ),
@@ -96,6 +90,7 @@ class PostDetailCardState extends State<PostDetailCard> {
               padding: const EdgeInsets.all(16.0),
               child: Text(widget.post.body),
             ),
+            const Gap(40),
             const Divider(),
             const Padding(
               padding: EdgeInsets.all(16.0),

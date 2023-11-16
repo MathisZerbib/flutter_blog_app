@@ -28,7 +28,7 @@ class PostsProvider extends ChangeNotifier {
 
   Future<void> addPost(Post post) async {
     final Post simulatedPost = post.copyWith(
-        id: _posts.length + 1, userId: 1, title: post.title, body: post.body);
+        id: post.id, userId: 1, title: post.title, body: post.body);
     _posts.insert(0, simulatedPost);
     notifyListeners();
   }

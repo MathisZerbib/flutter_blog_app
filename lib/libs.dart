@@ -23,6 +23,7 @@ export 'package:flutter_blog_app/app.dart';
 /// PROVIDERS
 export 'package:flutter_blog_app/providers/posts.dart';
 export 'package:flutter_blog_app/providers/users.dart';
+export 'package:flutter_blog_app/providers/comments.dart';
 
 /// SERVICES
 export 'package:flutter_blog_app/services/api_service.dart';
