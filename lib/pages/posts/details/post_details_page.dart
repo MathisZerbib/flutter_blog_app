@@ -40,6 +40,7 @@ class PostDetailsPageState extends ConsumerState<PostDetailsPage> {
           if (postIndex == -1) {
             postIndex = 0;
           }
+
           _pageController = PageController(initialPage: postIndex);
 
           return PageView.builder(
@@ -49,7 +50,7 @@ class PostDetailsPageState extends ConsumerState<PostDetailsPage> {
               final post = posts[index];
               final commentProv = ref.read(commentsProvider.notifier);
               commentProv.fetchCommentsByPostId(index);
-              final comments = ref.watch(commentsProvider).comments;
+              final comments = ref.read(commentsProvider).comments;
               return Center(
                 child: PostDetailCard(
                   post: post,
