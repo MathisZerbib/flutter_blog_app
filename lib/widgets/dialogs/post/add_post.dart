@@ -73,7 +73,6 @@ class AddPostDialogState extends State<AddPostDialog> {
   Future<Post?> _savePost(WidgetRef ref) async {
     final String title = _titleController.text;
     final String content = _contentController.text;
-
     final Post post = Post(
       id: 0,
       userId: 1,
