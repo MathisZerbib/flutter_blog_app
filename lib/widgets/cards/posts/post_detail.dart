@@ -24,7 +24,6 @@ class PostDetailCardState extends State<PostDetailCard> {
   }
 
   Future<void> _prepareData() async {
-    await Api.fetchUserPhoto(widget.post.userId);
     if (mounted) {
       setState(() {
         _isDataReady = true;
@@ -42,42 +41,45 @@ class PostDetailCardState extends State<PostDetailCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FutureBuilder(
-              future: Api.fetchPostImage(widget.post.id),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Image(
-                    image: NetworkImage(snapshot.data.toString()),
-                  );
-                } else {
-                  return const SizedBox(
-                    height: 200,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              },
-            ),
+            const Image(image: NetworkImage('https://picsum.photos/800/400')),
+            // FutureBuilder(
+            //   future: Api.fetchPostImage(widget.post.id),
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData) {
+            //       return Image(
+            //         image: NetworkImage(snapshot.data.toString()),
+            //       );
+            //     } else {
+            //       return const SizedBox(
+            //         height: 200,
+            //         child: Center(
+            //           child: CircularProgressIndicator(),
+            //         ),
+            //       );
+            //     }
+            //   },
+            // ),
             ListTile(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 16.0,
               ),
-              leading: FutureBuilder(
-                future: Api.fetchUserPhoto(widget.post.userId),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return CircleAvatar(
-                      backgroundImage: NetworkImage(snapshot.data.toString()),
-                    );
-                  } else {
-                    return const CircleAvatar(
-                      child: Icon(Icons.person),
-                    );
-                  }
-                },
-              ),
+              leading: const CircleAvatar(
+                  backgroundImage: NetworkImage('https://picsum.photos/50/50')),
+              // FutureBuilder(
+              //   future: Api.fetchUserPhoto(widget.post.userId),
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       return CircleAvatar(
+              //         backgroundImage: NetworkImage(snapshot.data.toString()),
+              //       );
+              //     } else {
+              //       return const CircleAvatar(
+              //         child: Icon(Icons.person),
+              //       );
+              //     }
+              //   },
+              // ),
               title: Text(
                 widget.post.title,
                 style: const TextStyle(

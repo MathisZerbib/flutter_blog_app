@@ -12,7 +12,6 @@ class CommentProvider extends ChangeNotifier {
   Future<void> fetchCommentsByPostId(int postId) async {
     final List<Comment> fetchedComments =
         await Api().fetchCommentsByPostId(postId);
-
     _comments.clear();
     _comments.addAll(fetchedComments);
     notifyListeners();
