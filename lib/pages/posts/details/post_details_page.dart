@@ -49,8 +49,9 @@ class PostDetailsPageState extends ConsumerState<PostDetailsPage> {
             itemBuilder: (context, index) {
               final post = posts[index];
               final commentProv = ref.read(commentsProvider.notifier);
-              commentProv.fetchCommentsByPostId(index);
+              commentProv.fetchCommentsByPostId(index); 
               final comments = ref.read(commentsProvider).comments;
+
               return Center(
                 child: PostDetailCard(
                   post: post,

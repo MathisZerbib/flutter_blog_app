@@ -83,7 +83,7 @@ class Api {
         final Map<String, dynamic> photoData = jsonDecode(response.body);
         return photoData['urls']['regular'];
       } else {
-        return "https://picsum.photos/id/$randomInt/720/1280";
+        return "https://picsum.photos/id/$randomInt/800/400";
       }
     } catch (e) {
       throw Exception('An error occurred while fetching user photo: $e');
@@ -91,31 +91,24 @@ class Api {
   }
 
   static Future<String> fetchPostImage(int postId) async {
-    final randomInt = Random(postId).nextInt(5);
+    try {
+      final String randomInt = Random().nextInt(10).toString();
 
-    const imageUrl = 'https://source.unsplash.com/random/1280x720';
-
-    return imageUrl;
-    // try {
-    // final String randomInt = Random().nextInt(10).toString();
-
-    //   final response = await http.get(
-    //     Uri.parse('https://api.unsplash.com/photos/random'),
-    //     headers: <String, String>{
-    //       'Authorization': 'Client-ID $unsplashApiKey',
-    //     },
-    //   );
-    //   if (response.statusCode == 200) {
-    //     print('response.body ${response.body}');
-    //     final Map<String, dynamic> photoData = jsonDecode(response.body);
-    //     return photoData['urls']['regular'];
-    //   } else {
-    //     print('error${response.statusCode}');
-    //     return "https://picsum.photos/id/$randomInt/720/1280";
-    //   }
-    // } catch (e) {
-    //   throw Exception('An error occurred while fetching post image: $e');
-    // }
+      final response = await http.get(
+        Uri.parse('https://api.unsplash.com/photos/random/800x400'),
+        headers: <String, String>{
+          'Authorization': 'Client-ID $unsplashApiKey',
+        },
+      );
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> photoData = jsonDecode(response.body);
+        return photoData['urls']['regular'];
+      } else {
+        return "https://picsum.photos/id/$randomInt/800/400";
+      }
+    } catch (e) {
+      throw Exception('An error occurred while fetching user photo: $e');
+    }
   }
 
   Future<List<Comment>> fetchCommentsByPostId(int postId) async {

@@ -139,8 +139,6 @@ app.*.symbols
 .metadata
 .vscode/
 analysis_options.yaml
-android/
-ios/
 linux/
 macos/
 pubspec.lock
